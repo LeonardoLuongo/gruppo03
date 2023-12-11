@@ -1,10 +1,13 @@
+package calculator;
+
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class VariablesManager {
+public class VariableManager {
     private Map<String, Variable> variables;
 
-    public VariablesManager() {
+    public VariableManager() {
         this.variables = new HashMap<>();
     }
 

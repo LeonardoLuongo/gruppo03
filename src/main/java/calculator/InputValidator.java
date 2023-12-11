@@ -115,62 +115,6 @@ public class InputValidator
     
     }
 
-    /*public int operationCode(String operation)
-    {
-        switch(operation) 
-        {
-            case "+":
-                return 1;
-
-            case "-":
-                return 2;
-
-            case "*":
-                return 3;
-
-            case "/":
-                return 4;
-                
-            case "sqrt":
-                return 5;
-                
-            case "inv":
-                return 6;
-                
-            case ">x":
-                return 7;
-                
-            case "<x":
-                return 8;
-                
-            case "+x":
-                return 9;
-                
-            case "-x":
-                return 10;
-                
-            case "dup":
-                return 11;
-                
-            case "drop":
-                return 12;
-                
-            case "swap":
-                return 13;
-                
-            case "clear":
-                return 14;
-                
-            case "over":
-                return 15;
-                
-            default:
-                return 0;
-            
-        }
-
-    }*/
-
     public int operationCode(String operation)
     {
         operation = operation.toLowerCase();
