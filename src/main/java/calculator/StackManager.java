@@ -4,6 +4,9 @@
  */
 package calculator;
 
+import calculator.exceptions.stackexceptions.NotEnoughElementsException;
+import calculator.exceptions.stackexceptions.StackIsEmptyException;
+import calculator.exceptions.stackexceptions.StackIsFullException;
 import java.util.ListIterator;
 import java.util.Stack;
 

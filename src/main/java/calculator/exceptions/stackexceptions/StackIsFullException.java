@@ -2,28 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Exception.java to edit this template
  */
-package calculator;
+package calculator.exceptions.stackexceptions;
 
 /**
  *
  * @author francescolemmo
  */
-public class NotEnoughElementsException extends RuntimeException {
+public class StackIsFullException extends RuntimeException {
 
     /**
-     * Creates a new instance of <code>NotEnoughElementsException</code> without
+     * Creates a new instance of <code>StackIsFullException</code> without
      * detail message.
      */
-    public NotEnoughElementsException() {
+    public StackIsFullException() {
     }
 
     /**
-     * Constructs an instance of <code>NotEnoughElementsException</code> with
-     * the specified detail message.
+     * Constructs an instance of <code>StackIsFullException</code> with the
+     * specified detail message.
      *
      * @param msg the detail message.
      */
-    public NotEnoughElementsException(String msg) {
+    public StackIsFullException(String msg) {
         super(msg);
     }
 }

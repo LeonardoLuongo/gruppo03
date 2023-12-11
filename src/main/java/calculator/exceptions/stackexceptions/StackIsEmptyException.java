@@ -2,28 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Exception.java to edit this template
  */
-package calculator;
+package calculator.exceptions.stackexceptions;
 
 /**
  *
  * @author francescolemmo
  */
-public class StackIsFullException extends RuntimeException {
+public class StackIsEmptyException extends RuntimeException {
 
     /**
-     * Creates a new instance of <code>StackIsFullException</code> without
+     * Creates a new instance of <code>StackIsEmptyException</code> without
      * detail message.
      */
-    public StackIsFullException() {
+    public StackIsEmptyException() {
     }
 
     /**
-     * Constructs an instance of <code>StackIsFullException</code> with the
+     * Constructs an instance of <code>StackIsEmptyException</code> with the
      * specified detail message.
      *
      * @param msg the detail message.
      */
-    public StackIsFullException(String msg) {
+    public StackIsEmptyException(String msg) {
         super(msg);
     }
 }
