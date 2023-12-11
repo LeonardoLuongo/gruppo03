@@ -20,7 +20,7 @@
                      <children>
                         <ImageView fitHeight="50.0" fitWidth="152.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@X.png" />
+                              <Image url="@../imgs/X.png" />
                            </image>
                         </ImageView>
                         <HBox prefHeight="100.0" prefWidth="200.0">
@@ -416,12 +416,12 @@
                   </Button>
                   <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="276.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" x="31.0" y="31.0">
                      <image>
-                        <Image url="@stackIcon.png" />
+                        <Image url="@../imgs/stackIcon.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="-24.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" x="31.0" y="31.0">
                      <image>
-                        <Image url="@xIcon.png" />
+                        <Image url="@../imgs/xIcon.png" />
                      </image>
                   </ImageView>
                </children>
@@ -490,7 +490,7 @@
                   </Button>
                   <ImageView fitHeight="42.0" fitWidth="152.0" layoutX="13.0" layoutY="8.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Stack.png" />
+                        <Image url="@../imgs/Stack.png" />
                      </image>
                   </ImageView>
                </children>
