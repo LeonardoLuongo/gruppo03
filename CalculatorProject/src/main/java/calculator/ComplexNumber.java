@@ -42,7 +42,8 @@ public class ComplexNumber {
     public double getImaginary() {
         return imaginary;
     }
-
+    
+    // method to convert the complex number into a string
     @Override
     public String toString() {
         if (this.getImaginary() == 0) {
