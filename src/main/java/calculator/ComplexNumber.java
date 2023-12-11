@@ -4,8 +4,6 @@
  */
 package calculator;
 
-import java.util.Locale;
-import java.util.Scanner;
 
 /**
  *
@@ -97,6 +95,6 @@ public class ComplexNumber {
         return new ComplexNumber(db[0], db[1]);
     }
     
-
+    
     
 }
