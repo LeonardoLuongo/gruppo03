@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcolatrice.CalcolatriceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox layoutX="186.0" layoutY="138.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -20,7 +20,7 @@
                      <children>
                         <ImageView fitHeight="50.0" fitWidth="152.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imgs/X.png" />
+                              <Image url="@../../imgs/X.png" />
                            </image>
                         </ImageView>
                         <HBox prefHeight="100.0" prefWidth="200.0">
@@ -416,12 +416,12 @@
                   </Button>
                   <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="276.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" x="31.0" y="31.0">
                      <image>
-                        <Image url="@../imgs/stackIcon.png" />
+                        <Image url="@../../imgs/stackIcon.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="-24.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" x="31.0" y="31.0">
                      <image>
-                        <Image url="@../imgs/xIcon.png" />
+                        <Image url="@../../imgs/xIcon.png" />
                      </image>
                   </ImageView>
                </children>
@@ -490,7 +490,7 @@
                   </Button>
                   <ImageView fitHeight="42.0" fitWidth="152.0" layoutX="13.0" layoutY="8.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/Stack.png" />
+                        <Image url="@../../imgs/Stack.png" />
                      </image>
                   </ImageView>
                </children>
