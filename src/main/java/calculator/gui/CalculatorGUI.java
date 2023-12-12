@@ -19,10 +19,10 @@ public class CalculatorGUI extends Application
     @Override
     public void start(Stage stage) throws Exception 
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(CalculatorGUI.class.getResource(".\\fxml\\Calculator.fxml"));
-        fxmlLoader.setController(new CalculatorControllerView());
+        FXMLLoader fxmlLoader = new FXMLLoader(CalculatorGUI.class.getResource(".\\fxml\\Calculator_v2.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Complex Calculator - Io, Mammeta, Mattia e tu & co.");
+
 
         stage.setScene(scene);
         stage.setResizable(false);
