@@ -1,4 +1,4 @@
-package calculator;
+package calculator.release;
 public class Variable {
     private String name;
     private ComplexNumber value;

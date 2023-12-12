@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package calculator;
+package calculator.release;
 
-import calculator.exceptions.stackexceptions.NotEnoughElementsException;
-import calculator.exceptions.stackexceptions.StackIsEmptyException;
-import calculator.exceptions.stackexceptions.StackIsFullException;
+import calculator.release.stackexceptions.NotEnoughElementsException;
+import calculator.release.stackexceptions.StackIsEmptyException;
+import calculator.release.stackexceptions.StackIsFullException;
 import java.util.ListIterator;
 import java.util.Stack;
 
