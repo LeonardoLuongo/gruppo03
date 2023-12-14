@@ -1,11 +1,53 @@
-package calculator.release;
+package calculatorproject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InputValidator 
 {
+    static public class CorrectInputFormat
+    {
+
+        private String input;
+
+        public CorrectInputFormat(String input){ this.tidyUpTheInput(input); }
+
+        @Override
+        public String toString() {
+
+            if(input == null || input.isEmpty())
+                throw new IllegalArgumentException("Unexpected input format");
+
+            this.input = this.input.replaceAll(" ", "");
+
+            return input;
+        }
+
+        private void tidyUpTheInput(String input)
+        {
+            input = input.toLowerCase().trim().replaceAll(" {1,}", " ");
+
+            Pattern p = Pattern.compile("[0-9]{1,} [^+-]");
+            Matcher m = p.matcher(input);
+            if (m.find())
+            {
+                this.input = null;
+                return;
+            }
+
+            this.input = input;
+        }
+
+        public boolean isCorrect()
+        {
+            return this.input != null;
+        }
+    }
+    
     Map<String, Integer> operations;
+    
     public InputValidator()
     {
         operations = new HashMap<>();
@@ -31,32 +73,24 @@ public class InputValidator
         operations.put("over",14);
     }
 
-    public boolean isValidInput(String input)
+    public boolean isValidInput(CorrectInputFormat correctInput)
     {
-        if(input != null)
-        {
-            input = input.replaceAll(" ", "");
-            input = input.toLowerCase();
-            boolean realPart = input.matches("[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}");
+        String input = correctInput.toString();
 
-            boolean immPart = input.matches("[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}j");
+        boolean realPart = input.matches("[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}");
 
-            boolean complex = input.matches("[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}j");
+        boolean immPart = input.matches("[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}j");
 
-            boolean opPart = input.matches("sqrt|inv|dup|drop|swap|clear|over|[+-/*]|[<>+-][a-z]");
+        boolean complex = input.matches("[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}j");
 
-            boolean result = realPart || immPart || complex || opPart;
-            if(!result)
-                return false;
-            int operationCode = operationCode(input);
-            if(isComplexNumber(input) || (operationCode >= 0 && operationCode <= 14))
-                return true;
-        }
-        return false;
+        boolean opPart = input.matches("sqrt|inv|dup|drop|swap|clear|over|[+-/*]|[<>+-][a-z]");
 
+        boolean result = realPart || immPart || complex || opPart;
+
+        return result;
     }
 
-    public boolean isNumber(String number)
+    private boolean isNumber(String number)
     {
         try 
         {
@@ -68,8 +102,11 @@ public class InputValidator
             return false;
         }
     }
-    public boolean isComplexNumber(String number)
+    
+    public boolean isComplexNumber(CorrectInputFormat correctInput)
     {
+        String number = correctInput.toString();
+
         StringBuilder temp = new StringBuilder();
     
         String[] onlynumber = new String[2];
@@ -107,17 +144,18 @@ public class InputValidator
         onlynumber[1] = onlynumber[1].replaceAll(" ", "");
 
         if (onlynumber.length == 2) 
-            return isNumber(onlynumber[0].toString()) && isNumber(onlynumber[1].toString().replaceAll("j", ""));         
+            return isNumber(onlynumber[0]) && isNumber(onlynumber[1].replaceAll("j", ""));         
         else if (onlynumber.length == 1) 
-            return isNumber(onlynumber[0].toString().replaceAll("j", ""));
+            return isNumber(onlynumber[0].replaceAll("j", ""));
         else
             return false;
     
     }
 
-    public int operationCode(String operation)
+    public int operationCode(CorrectInputFormat correctInput)
     {
-        operation = operation.toLowerCase();
+        String operation = correctInput.toString().toLowerCase();
+
         if(operation.charAt(0) == '+' || operation.charAt(0) == '-' || operation.charAt(0) == '>' || operation.charAt(0) == '<')
         {
             if(operation.length()==2) 
@@ -132,5 +170,7 @@ public class InputValidator
             return operations.get(operation); 
         return -1;
     }
+
+
 
 }

@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package calculator.release;
+package calculatorproject;
 
-import calculator.release.stackexceptions.NotEnoughElementsException;
-import calculator.release.stackexceptions.StackIsEmptyException;
-import calculator.release.stackexceptions.StackIsFullException;
+import calculatorproject.exceptions.NotEnoughElementsException;
+import calculatorproject.exceptions.StackIsEmptyException;
+import calculatorproject.exceptions.StackIsFullException;
 import java.util.ListIterator;
 import java.util.Stack;
 
@@ -102,6 +102,16 @@ public class StackManager {
         }
 
         return sb.toString();
+    }
+
+    // Method added after the Design Document
+    public int getSize()
+    {
+        return stack.size();
+    }
+    
+    public ListIterator<ComplexNumber> getIterator() {
+        return stack.listIterator(stack.lastIndexOf(stack.lastElement()) + 1);
     }
 
 }

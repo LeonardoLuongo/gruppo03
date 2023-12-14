@@ -1,79 +1,96 @@
-package calculator.release;
+package calculatorproject;
 
 public class Calculator
 {
     InputValidator inputValidator = new InputValidator();
+
     StackManager stackManager = new StackManager();
 
     VariableManager variableManager = new VariableManager();
-    Calculator() {}
+    public Calculator() {}
 
     public void fetchInput(String input)
     {
-        input = input.replaceAll(" ", "");
-        input = input.toLowerCase();
-        if(!this.inputValidator.isValidInput(input))
+        InputValidator.CorrectInputFormat correctInput = new InputValidator.CorrectInputFormat(input);
+        if(correctInput.toString() == null)
+            throw new IllegalArgumentException("Not a valid input");
+
+        if(!this.inputValidator.isValidInput(correctInput))
         {
             throw new IllegalArgumentException("Not a valid input.");
         }
 
-        if(this.inputValidator.isNumber(input))
+        if(this.inputValidator.isComplexNumber(correctInput))
         {
-            stackManager.push(ComplexNumber.fromString(input));
+            stackManager.push(ComplexNumber.fromString(correctInput.toString()));
         }
         else
         {
-            switch(this.inputValidator.operationCode(input))
+            switch(this.inputValidator.operationCode(correctInput))
             {
                 case 0:
-
                     this.add();
+                    break;
 
                 case 1:
                     this.sub();
+                    break;
 
                 case 2:
                     this.mul();
+                    break;
 
                 case 3:
                     this.div();
+                    break;
 
                 case 4:
                     this.sqrt();
+                    break;
 
                 case 5:
                     this.inv();
+                    break;
 
                 case 6:
                     this.fromStackIntoVariable(input.substring(1));
+                    break;
 
                 case 7:
                     this.fromVariableIntoStack(input.substring(1));
+                    break;
 
                 case 8:
                     this.varPlusStack(input.substring(1));
+                    break;
 
                 case 9:
                     this.varSubStack(input.substring(1));
+                    break;
 
                 case 10:
                     this.stackManager.dup();
+                    break;
 
                 case 11:
                     this.stackManager.drop();
+                    break;
 
                 case 12:
                     this.stackManager.swap();
+                    break;
 
                 case 13:
                     this.stackManager.clear();
+                    break;
 
                 case 14:
                     this.stackManager.over();
+                    break;
 
                 default:
                     System.err.println("!!! ERRORE : QUI NON DOVREBBE ARRIVARE !!!");
-
+                    break;
             }
 
         }
@@ -204,27 +221,16 @@ public class Calculator
 
     public void sqrt()
     {
-        ComplexNumber cn1;
+        ComplexNumber cn1 = stackManager.pop();
 
-        cn1 = stackManager.pop();
+        Double real = cn1.getReal();
+        Double imaginary = cn1.getImaginary();
 
-        // (cn2.real + j * cn2.imm) * (cn1.real + j * cn1.imm)
-        // R: cn2.real * cn1.real - cn2.imm * cn1.imm
-        // I: cn2.real * cn1.imm + cn2.imm * cn1.real
-        Double a = cn1.getReal();
-        Double b = cn1.getImaginary();
-        Double z = Math.sqrt(a*a + b*b);
-        Double realPart = Math.sqrt( (z + a) / 2 );
-        Double immPart = 0.0d;
-        if(b != 0.0d)
-            immPart = b/Math.abs(b) * Math.sqrt( (z - a) / 2 );
-
-        ComplexNumber cn3 = new ComplexNumber(
-                realPart,
-                immPart
-        );
-
-        stackManager.push(cn3);
+        double magnitude = Math.sqrt(Math.pow(real, 2) + Math.pow(imaginary, 2));
+        double angle = Math.atan2(imaginary, real) / 2.0;
+        double rootReal = Math.sqrt(magnitude) * Math.cos(angle);
+        double rootImaginary = Math.sqrt(magnitude) * Math.sin(angle);
+        stackManager.push(new ComplexNumber(rootReal, rootImaginary));
     }
 
     public void inv()
@@ -305,4 +311,14 @@ public class Calculator
         stackManager.push(cn1);
     }
 
+
+    @Override
+    public String toString() {
+
+        if(stackManager.getSize() < 12)
+            return stackManager.toString();
+
+        return "";
+
+    }
 }

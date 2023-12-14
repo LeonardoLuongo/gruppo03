@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package calculator.release;
+package calculatorproject;
 
 
 /**
@@ -58,7 +58,8 @@ public class ComplexNumber {
 
 
     public static ComplexNumber fromString(String value) {
-
+        value = value.replaceAll(" ", "");
+        
         StringBuilder temp = new StringBuilder();
 
         Double[] db = new Double[2];
