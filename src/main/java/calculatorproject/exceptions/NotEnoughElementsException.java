@@ -8,7 +8,7 @@ package calculatorproject.exceptions;
  *
  * @author francescolemmo
  */
-public class NotEnoughElementsException extends RuntimeException {
+public class NotEnoughElementsException extends StackIsEmptyException {
 
     /**
      * Creates a new instance of <code>NotEnoughElementsException</code> without

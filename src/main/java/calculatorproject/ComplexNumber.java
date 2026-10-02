@@ -4,10 +4,13 @@
  */
 package calculatorproject;
 
+import java.util.Locale;
+
 
 /**
  *
  * @author francescolemmo
+ *
  */
 public class ComplexNumber {
 
@@ -17,14 +20,23 @@ public class ComplexNumber {
 
     // constructor for the creation of a complex number 
     public ComplexNumber(double real, double imaginary) {
+        if(isNegativeZero(real))
+            real = 0.0f;
+
+        if(isNegativeZero(imaginary))
+            imaginary = 0.0f;
+
         this.real = real;
         this.imaginary = imaginary;
     }
 
     // constructor for the creation of a real number 
     public ComplexNumber(double real) {
+        if(isNegativeZero(real))
+            real = 0.0;
+
         this.real = real;
-        this.imaginary = 0;
+        this.imaginary = 0.0f;
     }
 
     // constructor for the creation of a complex number using an existing complex number
@@ -46,12 +58,12 @@ public class ComplexNumber {
     @Override
     public String toString() {
         if (this.getImaginary() == 0) {
-            return real+"";
+            return String.format(Locale.US,"%.3f", real);
         }
         else if (this.getImaginary() < 0)
-            return real + " - " + (-1*imaginary) + "j";
+            return String.format(Locale.US,"%.3f - %.3fj", real, (-1*imaginary));
         else {
-            return real + " + " + imaginary + "j";
+            return String.format(Locale.US,"%.3f + %.3fj",real, imaginary);
         }
 
     }
@@ -87,15 +99,28 @@ public class ComplexNumber {
 
         }
 
-        if(db[0] == null)
+        if(db[0] == null || isNegativeZero(db[0]))
             db[0] = 0.0d;
 
-        if(db[1] == null)
+        if(db[1] == null || isNegativeZero(db[1]))
             db[1] = 0.0d;
 
         return new ComplexNumber(db[0], db[1]);
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if(this == object)
+            return true;
 
+        if(!(object instanceof ComplexNumber))
+            return false;
 
+        ComplexNumber other = (ComplexNumber) object;
+        return this.getReal() == other.getReal() && this.getImaginary() == other.getImaginary();
+    }
+
+    private static boolean isNegativeZero(double value) {
+        return Double.compare(Math.abs(value), 0.0) == 0 && Double.compare(1.0 / value, Double.NEGATIVE_INFINITY) == 0;
+    }
 }

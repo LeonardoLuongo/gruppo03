@@ -1,5 +1,16 @@
 package calculatorproject;
 
+import calculatorproject.exceptions.NotEnoughElementsException;
+import calculatorproject.exceptions.VariableIsEmptyException;
+import java.util.ListIterator;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ *  @author Leonardo Luongo
+ *
+ */
+
 public class Calculator
 {
     InputValidator inputValidator = new InputValidator();
@@ -28,6 +39,9 @@ public class Calculator
         {
             switch(this.inputValidator.operationCode(correctInput))
             {
+                case -1:
+                    throw new IllegalArgumentException("Not a valid operation.");
+
                 case 0:
                     this.add();
                     break;
@@ -114,7 +128,7 @@ public class Calculator
         catch(RuntimeException e)
         {
             stackManager.push(cn1);
-            throw e;
+            throw new NotEnoughElementsException("At least 2 elements are needed.");
         }
 
         ComplexNumber cn3 = new ComplexNumber(
@@ -138,7 +152,7 @@ public class Calculator
         catch(RuntimeException e)
         {
             stackManager.push(cn1);
-            throw e;
+            throw new NotEnoughElementsException("At least 2 elements are needed.");
         }
 
         Double a = cn2.getReal();
@@ -146,7 +160,7 @@ public class Calculator
         Double c = cn1.getReal();
         Double d = cn1.getImaginary();
         ComplexNumber cn3 = new ComplexNumber(
-                a - b, c - d
+                a - c, b - d
         );
 
         stackManager.push(cn3);
@@ -165,7 +179,7 @@ public class Calculator
         catch(RuntimeException e)
         {
             stackManager.push(cn1);
-            throw e;
+            throw new NotEnoughElementsException("At least 2 elements are needed.");
         }
 
         // (cn2.real + j * cn2.imm) * (cn1.real + j * cn1.imm)
@@ -185,7 +199,7 @@ public class Calculator
         stackManager.push(cn3);
     }
 
-    public void div()
+    public void div() throws ArithmeticException
     {
         ComplexNumber cn1;
         ComplexNumber cn2;
@@ -198,7 +212,7 @@ public class Calculator
         catch(RuntimeException e)
         {
             stackManager.push(cn1);
-            throw e;
+            throw new NotEnoughElementsException("At least 2 elements are needed.");
         }
 
         // (cn2.real + j * cn2.imm) * (cn1.real + j * cn1.imm)
@@ -208,6 +222,10 @@ public class Calculator
         Double b = cn2.getImaginary();
         Double c = cn1.getReal();
         Double d = cn1.getImaginary();
+        
+        if (c == 0 && d == 0)
+            throw new ArithmeticException("Divided by zero");
+        
         Double realPart = (a * c + b * d) / (c * c + d * d);
         Double immPart = (b * c - a * d) / (c * c + d * d);
 
@@ -307,10 +325,16 @@ public class Calculator
         ComplexNumber cn1;
 
         cn1 = variableManager.getVariable(varName).getValue();
-
+        if (cn1 == null) {
+            throw new VariableIsEmptyException("Variable " + varName + " has no value");
+        }
         stackManager.push(cn1);
     }
 
+
+    public ComplexNumber getLastResult() {
+        return stackManager.top();
+    }
 
     @Override
     public String toString() {
@@ -321,4 +345,17 @@ public class Calculator
         return "";
 
     }
+
+    public Set<Map.Entry<String, Variable>> getVariablesEntry()
+    {
+        return this.variableManager.getVariablesEntry();
+    }
+
+    public ListIterator<ComplexNumber> getStackIterator()
+    {
+        if(stackManager.getSize() == 0)
+            return null;
+        return stackManager.getIterator();
+    }
+
 }

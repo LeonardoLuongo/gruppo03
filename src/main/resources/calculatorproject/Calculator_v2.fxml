@@ -17,7 +17,7 @@
          <children>
             <AnchorPane fx:id="anchorVariables" prefHeight="200.0" prefWidth="200.0" style="-fx-min-width: 167; -fx-max-width: 167;">
                <children>
-                  <ScrollPane prefHeight="550.0" prefWidth="160.0" style="-fx-background-color: #284277; -fx-min-width: 150; -fx-max-width: 150;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane fx:id="scrollPaneVar" prefHeight="550.0" prefWidth="160.0" style="-fx-background-color: #284277; -fx-min-width: 150; -fx-max-width: 150;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <content>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #284277; -fx-min-width: 150px;">
                            <children>
@@ -31,7 +31,7 @@
                               </ImageView>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#opVariables" prefHeight="30.0" prefWidth="30.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #FFFFFF; -fx-border-radius: 20px; -fx-text-fill: #284277; -fx-background-radius: 20px; -fx-font-size: 11; -fx-font-family: Semi Bold; -fx-max-width: 29; -fx-min-width: 29; -fx-min-height: 29; -fx-max-height: 29;" text="&gt;x">
+                                    <Button mnemonicParsing="false" onAction="#fetch" prefHeight="30.0" prefWidth="30.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #FFFFFF; -fx-border-radius: 20px; -fx-text-fill: #284277; -fx-background-radius: 20px; -fx-font-size: 11; -fx-font-family: Semi Bold; -fx-max-width: 29; -fx-min-width: 29; -fx-min-height: 29; -fx-max-height: 29;" text="&gt;x">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -39,7 +39,7 @@
                                           <Insets left="16.0" top="4.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#opVariables" prefHeight="31.0" prefWidth="31.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #FFFFFF; -fx-border-radius: 20px; -fx-text-fill: #284277; -fx-background-radius: 20px; -fx-font-size: 11; -fx-font-family: Semi Bold; -fx-max-height: 29; -fx-max-width: 29; -fx-min-height: 29; -fx-min-width: 29;" text="&lt;x">
+                                    <Button mnemonicParsing="false" onAction="#fetch" prefHeight="31.0" prefWidth="31.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #FFFFFF; -fx-border-radius: 20px; -fx-text-fill: #284277; -fx-background-radius: 20px; -fx-font-size: 11; -fx-font-family: Semi Bold; -fx-max-height: 29; -fx-max-width: 29; -fx-min-height: 29; -fx-min-width: 29;" text="&lt;x">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -47,7 +47,7 @@
                                           <Insets left="3.0" top="4.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#opVariables" prefHeight="31.0" prefWidth="31.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #FFFFFF; -fx-border-radius: 20px; -fx-text-fill: #284277; -fx-background-radius: 20px; -fx-font-size: 11; -fx-font-family: Semi Bold; -fx-max-height: 29; -fx-max-width: 29; -fx-min-height: 29; -fx-min-width: 29;" text="+x">
+                                    <Button mnemonicParsing="false" onAction="#fetch" prefHeight="31.0" prefWidth="31.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #FFFFFF; -fx-border-radius: 20px; -fx-text-fill: #284277; -fx-background-radius: 20px; -fx-font-size: 11; -fx-font-family: Semi Bold; -fx-max-height: 29; -fx-max-width: 29; -fx-min-height: 29; -fx-min-width: 29;" text="+x">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -55,7 +55,7 @@
                                           <Insets left="3.0" top="4.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#opVariables" prefHeight="31.0" prefWidth="31.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #FFFFFF; -fx-border-radius: 20px; -fx-text-fill: #284277; -fx-background-radius: 20px; -fx-font-size: 12; -fx-font-family: Semi Bold; -fx-max-height: 29; -fx-max-width: 29; -fx-min-height: 29; -fx-min-width: 29;" text="-x">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#fetch" prefHeight="31.0" prefWidth="31.0" style="-fx-border-color: #FFFFFF; -fx-background-color: #FFFFFF; -fx-border-radius: 20px; -fx-text-fill: #284277; -fx-background-radius: 20px; -fx-font-size: 12; -fx-font-family: Semi Bold; -fx-max-height: 29; -fx-max-width: 29; -fx-min-height: 29; -fx-min-width: 29;" text="-x">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -65,7 +65,7 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <VBox prefHeight="1082.0" prefWidth="183.0">
+                              <VBox fx:id="vBoxVariables" prefHeight="1082.0" prefWidth="183.0">
                                  <children>
                                     <Button fx:id="a" contentDisplay="CENTER" mnemonicParsing="false" onAction="#getX" prefHeight="41.0" prefWidth="120.0" style="-fx-border-color: #FFFFFF; -fx-background-color: none; -fx-text-fill: #FFFFFF; -fx-min-height: 41; -fx-max-height: 41;" text="A">
                                        <opaqueInsets>
@@ -288,7 +288,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="550.0" prefWidth="350.0" style="-fx-background-color: #284277; -fx-border-color: #FFFFFF; -fx-min-width: 350;">
                <children>
-                  <Button layoutX="26.0" layoutY="484.0" mnemonicParsing="false" onAction="#numb" prefHeight="50.0" prefWidth="53.0" style="-fx-border-color: #FFFFFF; -fx-background-color: none; -fx-border-radius: 20px; -fx-text-fill: #FFFFFF;;" text="." AnchorPane.bottomAnchor="17.0">
+                  <Button layoutX="28.0" layoutY="484.0" mnemonicParsing="false" onAction="#numb" prefHeight="50.0" prefWidth="53.0" style="-fx-border-color: #FFFFFF; -fx-background-color: none; -fx-border-radius: 20px; -fx-text-fill: #FFFFFF;;" text=".">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -298,18 +298,18 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="21.0" layoutY="166.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" + ">
+                  <Button layoutX="21.0" layoutY="166.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" + ">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <TextArea fx:id="textField" layoutX="25.0" layoutY="13.0" prefHeight="106.0" prefWidth="290.0" scrollLeft="22.0" style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-background-color: #284277; -fx-border-color: #FFF; -fx-border-width: 5px; -fx-text-fill: #284277; -fx-font-weight: bold; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-alignment: bottom-right; -fx-text-alignment: right; -fx-translate-y: -100%;" />
-                  <Button layoutX="77.0" layoutY="166.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" - ">
+                  <TextArea fx:id="textField" layoutX="25.0" layoutY="13.0" onKeyPressed="#keyConverter" prefHeight="106.0" prefWidth="290.0" scrollLeft="22.0" style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-background-color: #284277; -fx-border-color: #FFF; -fx-border-width: 5px; -fx-text-fill: #284277; -fx-font-weight: bold; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-alignment: bottom-right; -fx-text-alignment: right; -fx-translate-y: -100%;" />
+                  <Button layoutX="77.0" layoutY="166.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" - ">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="77.0" layoutY="215.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" +-">
+                  <Button layoutX="77.0" layoutY="215.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" +-">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -322,17 +322,17 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="133.0" layoutY="166.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" * ">
+                  <Button layoutX="133.0" layoutY="166.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" * ">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="21.0" layoutY="215.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" sqrt ">
+                  <Button layoutX="21.0" layoutY="215.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" sqrt ">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="190.0" layoutY="166.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" / ">
+                  <Button layoutX="190.0" layoutY="166.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="44.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 16; -fx-border-radius: 20px; -fx-background-radius: 20px;" text=" / ">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -342,7 +342,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="255.0" layoutY="166.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="CLEAR">
+                  <Button layoutX="255.0" layoutY="166.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="CLEAR">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -357,27 +357,27 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="255.0" layoutY="263.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="DUP">
+                  <Button layoutX="255.0" layoutY="263.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="DUP">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="255.0" layoutY="215.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="DROP">
+                  <Button layoutX="255.0" layoutY="215.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="DROP">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="255.0" layoutY="359.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="OVER">
+                  <Button layoutX="255.0" layoutY="359.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="OVER">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="255.0" layoutY="311.0" mnemonicParsing="false" onAction="#getOperation" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="SWAP">
+                  <Button layoutX="255.0" layoutY="311.0" mnemonicParsing="false" onAction="#fetch" prefHeight="37.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 15; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="SWAP">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button layoutX="254.0" layoutY="407.0" mnemonicParsing="false" onAction="#start" prefHeight="128.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 18; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Enter">
+                  <Button layoutX="254.0" layoutY="407.0" mnemonicParsing="false" onAction="#fetch" prefHeight="128.0" prefWidth="70.0" style="-fx-border-color: #E5E5E5; -fx-background-color: #E5E5E5; -fx-text-fill: #284277; -fx-font-family: Semi Bold; -fx-font-size: 18; -fx-border-radius: 20px; -fx-background-radius: 20px;" text="Enter">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -464,7 +464,7 @@
                         <Image url="@imgs/Stack.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" prefHeight="550.0" prefWidth="127.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="40.0">
+                  <VBox fx:id="vBoxStack" alignment="CENTER" prefHeight="550.0" prefWidth="127.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="40.0">
                      <children>
                         <Button fx:id="stack12" mnemonicParsing="false" prefHeight="41.0" prefWidth="120.0" style="-fx-border-color: #FFFFFF; -fx-background-color: none; -fx-text-fill: #FFFFFF;">
                            <opaqueInsets>

@@ -5,33 +5,66 @@
 package calculatorproject;
 
 import java.net.URL;
+import java.util.ListIterator;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import calculatorproject.Calculator;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 
 /**
  * FXML Controller class
  *
  * @author francescomonda
+ * @author Leonardo Luongo
  */
-public class CalculatorControllerView implements Initializable 
-{
+public class CalculatorControllerView implements Initializable {
 
     @FXML
     private TextArea textField;
-    
-    private String current="";
+
+    private Button oldColoredButton = null;
+
     @FXML
     private Button deleteAll;
+    @FXML
+    private VBox vBoxStack;
+    @FXML
+    private VBox vBoxVariables;
+    private AnchorPane mainPain;
+
+    @FXML
+    private ScrollPane scrollPaneVar;
+    private Stage stage;
+    private Button[] variablesButton;
+
+    private Button[] stackButtons;
+
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+
+    private Calculator calculator;
+    @FXML
+    private Button stackClick;
+    @FXML
+    private AnchorPane anchorVariables;
+    @FXML
+    private AnchorPane anchorStack;
     @FXML
     private Button a;
     @FXML
@@ -108,61 +141,209 @@ public class CalculatorControllerView implements Initializable
     private Button stack2;
     @FXML
     private Button stack1;
-    
-    private Button[] variables = {a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z};
-    
-    private Button[] stack = {stack1, stack2, stack3, stack4, stack5, stack6, stack7, stack8, stack9, stack10, stack11, stack12};
-    
-    Alert alert = new Alert(Alert.AlertType.WARNING);
-    
-    private Calculator calculator;
-    @FXML
-    private Button stackClick;
-    @FXML
-    private AnchorPane anchorVariables;
-    @FXML
-    private AnchorPane anchorStack;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) 
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         calculator = new Calculator();
-        
-    } 
-    
-    @FXML
-    private void start(ActionEvent event)
-    {
-        textField.clear();
-        current = textField.getText();
-        try 
-        {
-            calculator.fetchInput(current);
-            
-        }
-        catch (RuntimeException e)
-        {
-            showAlert("Exception Handled: STACK PIENO");
-            e.printStackTrace();
-        }
-        stack();
-        textField.setText(calculator.toString());
+
+        initStack();
+        stackUpdate();
+        initVariables();
+        initOperationButtons();
     }
-    
-    private void stack()
+
+    public void initOperationButtons()
     {
-        for(int i=1; i<=stack.length; i++)
+
+    }
+
+    private void disableAllButtons() {
+        disableButtonsInContainer(mainPain);
+    }
+
+    private void disableButtonsInContainer(Node container) {
+        if (container instanceof Pane) {
+            for (Node node : ((Pane) container).getChildren()) {
+                disableButtonsInContainer(node);
+            }
+        } else if (container instanceof Button) {
+            ((Button) container).setDisable(true);
+        }
+    }
+    private void initVariables() {
+        int i = 0;
+        variablesButton = new Button[vBoxVariables.getChildren().size()];
+        for (var child : vBoxVariables.getChildren()) {
+            if (child instanceof Button) {
+                variablesButton[i] = ((Button) child);
+                variablesButton[i].setText((char)(i + 'A') + "");
+                i++;
+            }
+        }
+    }
+
+    public void setStage(Stage stage)
+    {
+        this.stage = stage;
+    }
+
+    private void initStack()
+    {
+        int i = 0;
+        stackButtons = new Button[vBoxStack.getChildren().size()];
+        for (var child: vBoxStack.getChildren())
         {
-            if(stack[i] != null)
+            if(child instanceof Button)
             {
-                stack[i].setText("");
+                stackButtons[i] = ((Button) child);
+                i++;
             }
         }
     }
     
+    
+    private void stackUpdate()
+    {
+        ListIterator<ComplexNumber> it = calculator.getStackIterator();
+    
+    if (it == null) {
+        clearStackButtons();
+    } else {
+        ComplexNumber c;
+        int i = 0;
+        while (it.hasPrevious() && i < 12) {
+            c = it.previous();
+            updateButtonWithTextS(stackButtons[i], (c != null) ? c.toString() : "");
+            i++;
+        }
+        
+        while (i < 12) {
+            clearButton(stackButtons[i]);
+            i++;
+        }
+    }
+    }
+    private void updateButtonWithTextS(Button button, String text) {
+    Text tempText = new Text(text);
+    double maxWidth = button.getWidth() - 10; // Adjust margin as needed
+    double fontSize = 12; // Default font size
+
+    while (tempText.getBoundsInLocal().getWidth() > maxWidth && fontSize > 1) {
+        fontSize--;
+        tempText.setFont(new Font(fontSize));
+    }
+
+    button.setText(text);
+    button.setFont(new Font(fontSize));
+    }
+    
+    private void clearButton(Button button) 
+    {
+    button.setText("");
+    // You may want to reset the font size to the default here if needed
+    }
+
+    private void clearStackButtons() {
+    for (int i = 0; i < 12; i++) {
+        clearButton(stackButtons[i]);
+    }
+    }
+
+    public void variablesUpdate()
+    {
+        int i = 0;
+    ComplexNumber temp;
+
+    for (var variable : calculator.getVariablesEntry()) {
+        temp = variable.getValue().getValue();
+        updateButtonWithTextV(variablesButton[i], (char) (i + 'A') + " = " + ((temp != null) ? temp.toString() : ""));
+        i++;
+        }
+    }
+    private void updateButtonWithTextV(Button button, String text) {
+    Text tempText = new Text(text);
+    double maxWidth = button.getWidth() - 10; // Adjust margin as needed
+    double fontSize = 12; // Default font size
+
+    while (tempText.getBoundsInLocal().getWidth() > maxWidth && fontSize > 1) {
+        fontSize--;
+        tempText.setFont(new Font(fontSize));
+    }
+
+    button.setText(text);
+    button.setFont(new Font(fontSize));
+}
+
+    @FXML
+    private void fetch(ActionEvent event)
+    {
+        if(!(event.getSource() instanceof Button))
+            return;
+
+        // Get the source of the event (in this case, the button)
+        Button sourceButton = (Button) event.getSource();
+
+        // Get the text of the button
+        String buttonText = sourceButton.getText().replaceAll(" ", "").toLowerCase();
+
+        Pattern p = Pattern.compile("virtualbutton*");
+        Matcher m = p.matcher(buttonText);
+        boolean isVirtualButton = m.find();
+        if(isVirtualButton)
+        {
+            buttonText = buttonText.replaceAll("virtualbutton", "");
+        }
+
+
+        try
+        {
+            if(buttonText.matches("enter"))
+            {
+                calculator.fetchInput(textField.getText());
+                textField.clear();
+            }
+            else if(buttonText.matches("/|sqrt|dup|clear|drop|over|swap") || buttonText.equals("*") || buttonText.equals("+-"))
+            {
+                if(buttonText.equals("+-"))
+                    buttonText = "inv";
+
+                calculator.fetchInput(buttonText);
+                textField.clear();
+            }
+            else if(buttonText.matches("[+-]"))
+            {
+                if(textField.getText().isEmpty() ||
+                        textField.getText().replaceAll(" ", "")
+                                .matches("[+-]?[0-9]{0,}.?[0-9]{0,}")
+                )
+                    if(!isVirtualButton)
+                        textField.setText(textField.getText() + sourceButton.getText());
+            }
+            else if(buttonText.matches("[><+-]x"))
+            {
+                if(!textField.getText().isEmpty())
+                    return;
+
+                if(!isVirtualButton)
+                    textField.setText(textField.getText() + sourceButton.getText().charAt(0));
+            }
+
+        }
+        catch (RuntimeException e)
+        {
+            showAlert("Exception Handled: " + e.getLocalizedMessage());
+            e.printStackTrace();
+            textField.clear();
+        }
+        finally {
+            stackUpdate();
+            variablesUpdate();
+        }
+    }
+
     private void showAlert(String message) 
     {
         alert.setTitle("Alert");
@@ -170,54 +351,14 @@ public class CalculatorControllerView implements Initializable
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
-    
-    @FXML
-    private void opVariables(ActionEvent event) 
-    {
-        String op = ((Button)event.getSource()).getText();
-        String newOp = op.substring(0, op.length() - 1);
-        textField.setText(textField.getText() + newOp);
-        
-    }
 
     @FXML
     private void getX(ActionEvent event) 
     {
-        String x = ((Button)event.getSource()).getText().toLowerCase();
+        String x = ((Button)event.getSource()).getText()
+                .toLowerCase()
+                .charAt(0) + "";
         textField.setText(textField.getText() + x);
-    }
-
-
-    @FXML
-    private void getOperation(ActionEvent event) 
-    {
-        current = textField.getText(); 
-        String operation = ((Button)event.getSource()).getText().toLowerCase();
-        if(operation.equals(" + ") || operation.equals(" - "))
-        {
-            if((current != ""))
-                textField.setText(textField.getText() + operation);
-            else
-                fetch(operation);
-        }
-        else
-            fetch(operation);
-    }
-    
-    private void fetch(String operation)
-    {
-        try 
-            {
-                operation.replaceAll(" ", "");
-                calculator.fetchInput(operation);
-
-            }
-            catch (RuntimeException e)
-            {
-                showAlert("Exception Handled: STACK PIENO!!!!");
-                e.printStackTrace();
-            }
     }
 
     @FXML
@@ -232,36 +373,6 @@ public class CalculatorControllerView implements Initializable
     private void getDelete(ActionEvent event) 
     {
         textField.setText("");
-        
-        variables[0].setText(variables[0].getId().toUpperCase());
-        /*a.setText(a.getId().toUpperCase());
-        b.setText(b.getId().toUpperCase());
-        c.setText(c.getId().toUpperCase());
-        d.setText(d.getId().toUpperCase());
-        e.setText(e.getId().toUpperCase());
-        f.setText(f.getId().toUpperCase());
-        g.setText(g.getId().toUpperCase());
-        h.setText(h.getId().toUpperCase());
-        i.setText(i.getId().toUpperCase());
-        j.setText(j.getId().toUpperCase());
-        k.setText(k.getId().toUpperCase());
-        l.setText(l.getId().toUpperCase());
-        m.setText(m.getId().toUpperCase());
-        n.setText(n.getId().toUpperCase());
-        o.setText(o.getId().toUpperCase());
-        p.setText(p.getId().toUpperCase());
-        q.setText(q.getId().toUpperCase());
-        r.setText(r.getId().toUpperCase());
-        s.setText(s.getId().toUpperCase());
-        t.setText(t.getId().toUpperCase());
-        u.setText(u.getId().toUpperCase());
-        v.setText(v.getId().toUpperCase());
-        w.setText(w.getId().toUpperCase());
-        x.setText(x.getId().toUpperCase());
-        y.setText(y.getId().toUpperCase());
-        z.setText(z.getId().toUpperCase());*/
-        
-        
     }
 
 
@@ -270,7 +381,10 @@ public class CalculatorControllerView implements Initializable
     {
         if (!textField.getText().isEmpty()) 
         {
-            String newText = textField.getText().substring(0, textField.getText().length() - 1);
+            String newText = textField.getText().replaceAll(" ", "");
+            newText = newText.substring(0, newText.length() - 1);
+            newText = newText.replaceAll("'+'*", " + ");
+            newText = newText.replaceAll("'-'*", " - ");
             textField.setText(newText);
         }
     }
@@ -278,8 +392,9 @@ public class CalculatorControllerView implements Initializable
     @FXML
     private void showVariables(ActionEvent event) 
     {
-        if(anchorVariables.isVisible())
+        if(anchorVariables.isVisible()) {
             anchorVariables.setVisible(false);
+        }
         else
             anchorVariables.setVisible(true);
     }
@@ -291,24 +406,41 @@ public class CalculatorControllerView implements Initializable
         else
             anchorStack.setVisible(true);  
     }
-    
-    private void cl()
-    {
-        
-        stack1.setText("");
-        stack2.setText("");
-        stack3.setText("");
-        stack4.setText("");
-        stack5.setText("");
-        stack6.setText("");
-        stack7.setText("");
-        stack8.setText("");
-        stack9.setText("");
-        stack10.setText("");
-        stack11.setText("");
-        stack12.setText("");
-    }
-    
 
-    
+    @FXML
+    public void keyConverter(KeyEvent keyEvent)
+    {
+        String keyPressed = keyEvent.getText().toLowerCase();
+        Button virtualButton = new Button("virtualButton");
+        ActionEvent event;
+
+
+        if(keyEvent.getCode() == KeyCode.ENTER)
+        {
+            virtualButton.setText(virtualButton.getText() + "enter");
+            String s = textField.getText().replace("\n", "");
+            textField.setText(s);
+        }
+        else
+        {
+            virtualButton.setText(virtualButton.getText() + keyEvent.getText());
+        }
+        event = new ActionEvent(virtualButton, null);
+        this.fetch(event);
+
+        if(oldColoredButton != null)
+        {
+            oldColoredButton.setStyle(oldColoredButton.getStyle().replace("-fx-text-fill: yellow;", ""));
+            oldColoredButton.setStyle(oldColoredButton.getStyle().replace("-fx-font-weight: bold;", ""));
+            scrollPaneVar.setVvalue(0.0);
+        }
+        if(keyPressed.matches("[a-z]") && textField.getText().matches("[<>+-]"))
+        {
+            double v = (keyPressed.charAt(0) - (double)'a')/26 + 0.1;
+            oldColoredButton = variablesButton[keyPressed.charAt(0) - 'a'];
+            oldColoredButton.setStyle(oldColoredButton.getStyle() + ("-fx-text-fill: yellow;"));
+            oldColoredButton.setStyle(oldColoredButton.getStyle() + ("-fx-font-weight: bold;"));
+            scrollPaneVar.setVvalue(v);
+        }
+    }
 }

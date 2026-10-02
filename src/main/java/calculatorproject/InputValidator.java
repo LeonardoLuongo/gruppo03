@@ -1,9 +1,15 @@
 package calculatorproject;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ *
+ *  @author Leonardo Luongo
+ *  @author francescomonda
+ *
+ */
 
 public class InputValidator 
 {
@@ -20,14 +26,24 @@ public class InputValidator
             if(input == null || input.isEmpty())
                 throw new IllegalArgumentException("Unexpected input format");
 
-            this.input = this.input.replaceAll(" ", "");
+            this.input = this.input.replaceAll(" ", "").toLowerCase(Locale.US);
 
             return input;
         }
 
         private void tidyUpTheInput(String input)
         {
-            input = input.toLowerCase().trim().replaceAll(" {1,}", " ");
+            if(input.contains(" ") && !input.contains("+") && !input.contains("-"))
+            {
+                input = input.toLowerCase().trim().replaceAll(" {1,}", " ");
+
+                if(input.split(" ").length > 0)
+                {
+                    this.input = null;
+                    return;
+                }
+            }
+
 
             Pattern p = Pattern.compile("[0-9]{1,} [^+-]");
             Matcher m = p.matcher(input);
@@ -76,6 +92,36 @@ public class InputValidator
     public boolean isValidInput(CorrectInputFormat correctInput)
     {
         String input = correctInput.toString();
+
+        if(countOccurrences(input, "+") + countOccurrences(input, "-") > 2)
+            return false;
+
+        String[] plusSplit = input.split("[+]");
+        LinkedList<String> listPlusSplit = new LinkedList<>();
+
+        String[] subSplit = input.split("[-]");
+        LinkedList<String> listSubSplit = new LinkedList<>();
+
+        for(int i = 0; i < plusSplit.length; i++)
+        {
+            if(plusSplit[i].isEmpty())
+                listPlusSplit.add(plusSplit[i]);
+        }
+
+        for(int i = 0; i < subSplit.length; i++)
+        {
+            if(subSplit[i].isEmpty())
+                listSubSplit.add(subSplit[i]);
+        }
+
+        if(listPlusSplit.size() + listSubSplit.size() > 4)
+            return false;
+
+        if(listPlusSplit.size() > 1 && listPlusSplit.getLast().charAt(listPlusSplit.getLast().length() - 1) != 'j')
+            return false;
+
+        if(listSubSplit.size() > 1 && listSubSplit.getLast().charAt(listSubSplit.getLast().length() - 1) != 'j')
+            return false;
 
         boolean realPart = input.matches("[+-]{0,1}[0-9]{1,}.{0,1}[0-9]{0,}");
 
@@ -143,13 +189,7 @@ public class InputValidator
         onlynumber[0] = onlynumber[0].replaceAll(" ", "");
         onlynumber[1] = onlynumber[1].replaceAll(" ", "");
 
-        if (onlynumber.length == 2) 
-            return isNumber(onlynumber[0]) && isNumber(onlynumber[1].replaceAll("j", ""));         
-        else if (onlynumber.length == 1) 
-            return isNumber(onlynumber[0].replaceAll("j", ""));
-        else
-            return false;
-    
+        return isNumber(onlynumber[0]) && isNumber(onlynumber[1].replaceAll("j", ""));
     }
 
     public int operationCode(CorrectInputFormat correctInput)
@@ -171,6 +211,17 @@ public class InputValidator
         return -1;
     }
 
+    private static int countOccurrences(String source, String target) {
+        int occurrences = 0;
+        int index = source.indexOf(target);
+
+        while (index != -1) {
+            occurrences++;
+            index = source.indexOf(target, index + 1);
+        }
+
+        return occurrences;
+    }
 
 
 }

@@ -1,2 +1,4 @@
 /target/
 /nbproject/
+.DS_Store
+*.class

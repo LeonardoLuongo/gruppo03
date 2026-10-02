@@ -7,6 +7,8 @@ package calculatorproject;
 import calculatorproject.exceptions.NotEnoughElementsException;
 import calculatorproject.exceptions.StackIsEmptyException;
 import calculatorproject.exceptions.StackIsFullException;
+
+import java.util.Comparator;
 import java.util.ListIterator;
 import java.util.Stack;
 
@@ -75,9 +77,13 @@ public class StackManager {
     public ComplexNumber pop() throws StackIsEmptyException {
         if (stack.isEmpty()) {
             throw new StackIsEmptyException("Stack Is Empty\n");
+
         }
-        else
-            return stack.pop();
+        else {
+            ComplexNumber c = this.top();
+            stack.remove(stack.size() - 1);
+            return c;
+        }
     }
 
     public ComplexNumber top() throws StackIsEmptyException {

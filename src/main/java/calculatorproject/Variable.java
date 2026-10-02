@@ -1,10 +1,17 @@
 package calculatorproject;
+
+/**
+ * @author Mattia Vitali
+ *
+ */
+
 public class Variable {
     private String name;
     private ComplexNumber value;
 
     public Variable(String name) {
         this.name = name;
+        this.value = null;
     }
 
     public String getName() {
@@ -34,9 +41,6 @@ public class Variable {
 
     @Override
     public String toString() {
-        return "Variable{" +
-                "name='" + name + '\'' +
-                ", value=" + value +
-                '}';
+        return name + ": "+ value;
     }
 }
